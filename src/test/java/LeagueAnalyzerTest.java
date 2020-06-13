@@ -3,6 +3,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.io.IOException;
+import java.util.List;
 
 public class LeagueAnalyzerTest {
 
@@ -68,6 +69,22 @@ public class LeagueAnalyzerTest {
             cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_WITH_WRONG_DELIMETER);
         } catch (CricketAnalyzerException e) {
             Assert.assertEquals(CricketAnalyzerException.ExceptionType.INCORRECT_FILE_DATA, e.type);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CSVBuilderException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void givenBattingCSVFile_WhenSortedOnAvg_ShouldReturnSortedResult() {
+        try {
+            CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+            cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_PATH);
+            List<IPLBattingCSV> avgWiseSortedData = cricketAnalyzer.getAvgWiseSortedData();
+            System.out.println("average"+avgWiseSortedData.get(0));
+            Assert.assertEquals(83.2, avgWiseSortedData.get(0).average, 0);
+        } catch (CricketAnalyzerException e) {
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (CSVBuilderException e) {

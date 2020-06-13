@@ -3,20 +3,24 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class CricketAnalyzer {
-    public List<IPLBattingCSV> battingCSVList = new ArrayList<>();
+    public List<IPLBattingDAO> battingCSVList = new ArrayList<>();
 
     public int loadBattingData(String CsvFilePath) throws IOException, CSVBuilderException, CricketAnalyzerException {
 
         try {
             Reader reader = Files.newBufferedReader(Paths.get(CsvFilePath));
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            battingCSVList = csvBuilder.getCSVFileList(reader, IPLBattingCSV.class);
-            System.out.println("value of list" + battingCSVList);
+            Iterator csvFileIterator = csvBuilder.getCSVFileIterator(reader, IPLBattingCSV.class);
+            Iterable<IPLBattingCSV> iterable = () -> csvFileIterator;
+            StreamSupport.stream(iterable.spliterator(),false).forEach(data -> battingCSVList.add(new IPLBattingDAO(data)));
             return battingCSVList.size();
+
 
         } catch (IOException e) {
             throw new CricketAnalyzerException(e.getMessage(),
@@ -30,34 +34,34 @@ public class CricketAnalyzer {
     }
 
 
-    public List<IPLBattingCSV> getAvgWiseSortedData() {
-        battingCSVList = battingCSVList.stream()
-                .sorted((data1, data2) -> data2.average - data1.average < 0 ? -1 : 1)
+    public List getAvgWiseSortedData() {
+        List<IPLBattingCSV> iplBattingDto  = battingCSVList.stream()
+                .sorted((data1, data2) -> data2.avg - data1.avg < 0 ? -1 : 1).map(iplLeagueDto-> iplLeagueDto.getBattingDto())
                 .collect(Collectors.toList());
-        for (int i = 0; i < battingCSVList.size(); i++) {
-            System.out.println("value of average" + battingCSVList.get(i).average + " " + battingCSVList.get(i).player);
+        for (int i = 0; i < iplBattingDto.size(); i++) {
+            System.out.println("value of average" + iplBattingDto.get(i).average + " " + iplBattingDto.get(i).player);
         }
-        return battingCSVList;
+        return iplBattingDto;
     }
 
-    public List<IPLBattingCSV> getStrikeRateWiseSortedData() {
-        battingCSVList = battingCSVList.stream()
-                .sorted((data1, data2) -> data2.strikeRate - data1.strikeRate < 0 ? -1 : 1)
+    public List getStrikeRateWiseSortedData() {
+        List<IPLBattingCSV> iplBattingDto = battingCSVList.stream()
+                .sorted((data1, data2) -> data2.strikeRate - data1.strikeRate < 0 ? -1 : 1).map(iplLeagueDto-> iplLeagueDto.getBattingDto())
                 .collect(Collectors.toList());
-        for (int i = 0; i < battingCSVList.size(); i++) {
-            System.out.println("value of average" + battingCSVList.get(i).strikeRate + " " + battingCSVList.get(i).player);
+        for (int i = 0; i < iplBattingDto.size(); i++) {
+            System.out.println("value of average" + iplBattingDto.get(i).strikeRate + " " + iplBattingDto.get(i).player);
         }
-        return battingCSVList;
+        return iplBattingDto;
     }
 
-    public List<IPLBattingCSV> getBoundaryWiseSortedData() {
-        battingCSVList = battingCSVList.stream()
-                .sorted((data1, data2) -> ((data2.sixes * 6) + (data2.fours * 4)) - ((data1.sixes * 6) + (data1.fours * 4)))
+    public List getBoundaryWiseSortedData() {
+        List<IPLBattingCSV> iplBattingDto = battingCSVList.stream()
+                .sorted((data1, data2) -> ((data2.sixes * 6) + (data2.fours * 4)) - ((data1.sixes * 6) + (data1.fours * 4))).map(iplBattingDAO ->  iplBattingDAO.getBattingDto())
                 .collect(Collectors.toList());
-        for (int i = 0; i < battingCSVList.size(); i++) {
-            System.out.println("value of average" + battingCSVList.get(i).fours + " " + battingCSVList.get(i).sixes + " " + battingCSVList.get(i).player);
+        for (int i = 0; i < iplBattingDto.size(); i++) {
+            System.out.println("value of average" + iplBattingDto.get(i).fours + " " + iplBattingDto.get(i).sixes + " " + battingCSVList.get(i).player);
         }
-        return battingCSVList;
+        return iplBattingDto;
     }
 
 

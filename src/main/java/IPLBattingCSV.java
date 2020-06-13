@@ -44,6 +44,9 @@ public class IPLBattingCSV {
     @CsvBindByName(column = "6s")
     public int sixes;
 
+    public IPLBattingCSV(int position, String player, int match, int inns, int notOut, int runs, String highScore, double avg, int ballFaced, double strikeRate, int hundred, int fifty, int fours, int sixes) {
+    }
+
     @Override
     public String toString() {
         return "IPLBattingCSV{" +

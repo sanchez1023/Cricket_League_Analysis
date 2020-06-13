@@ -30,7 +30,7 @@ public class IPLBattingCSV {
     public int ballFaced;
 
     @CsvBindByName(column = "SR")
-    public String strikeRate;
+    public Double strikeRate;
 
     @CsvBindByName(column = "100")
     public int hundred;
@@ -56,7 +56,7 @@ public class IPLBattingCSV {
                 ", highScore='" + highScore + '\'' +
                 ", average='" + average  +
                 ", ballFaced=" + ballFaced +
-                ", strikeRate='" + strikeRate + '\'' +
+                ", strikeRate='" + strikeRate +
                 ", hundred=" + hundred +
                 ", fifty=" + fifty +
                 ", fours=" + fours +

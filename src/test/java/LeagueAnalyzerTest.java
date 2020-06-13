@@ -91,6 +91,22 @@ public class LeagueAnalyzerTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void givenBattingCSVFile_WhenSortedOnSR_ShouldReturnSortedResult() {
+        try {
+            CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+            cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_PATH);
+            List<IPLBattingCSV> strikeRateWiseSortedData = cricketAnalyzer.getStrikeRateWiseSortedData();
+            Assert.assertEquals(333.33, strikeRateWiseSortedData.get(0).strikeRate, 0);
+            System.out.println("strike rate"+strikeRateWiseSortedData.get(0));
 
+        } catch (CricketAnalyzerException e) {
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CSVBuilderException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -39,4 +39,14 @@ public class CricketAnalyzer {
         }
         return battingCSVList;
     }
+
+    public List<IPLBattingCSV> getStrikeRateWiseSortedData() {
+        battingCSVList=battingCSVList.stream()
+                .sorted((data1,data2) -> data2.strikeRate - data1.strikeRate < 0 ? -1 : 1)
+                .collect(Collectors.toList());
+        for (int i=0 ; i < battingCSVList.size() ; i++){
+            System.out.println("value of average"+battingCSVList.get(i).strikeRate+" "+battingCSVList.get(i).player);
+        }
+        return battingCSVList;
+    }
 }

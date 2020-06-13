@@ -18,10 +18,10 @@ public class CricketAnalyzer {
             System.out.println("value of list" + battingCSVList);
             return battingCSVList.size();
 
-        }  catch (IOException e) {
+        } catch (IOException e) {
             throw new CricketAnalyzerException(e.getMessage(),
-            CricketAnalyzerException.ExceptionType.BATTING_CSV_FILE_PROBLEM);
-        }  catch (CSVBuilderException e) {
+                    CricketAnalyzerException.ExceptionType.BATTING_CSV_FILE_PROBLEM);
+        } catch (CSVBuilderException e) {
             throw new CricketAnalyzerException(e.getMessage(), e.type.name());
         } catch (RuntimeException e) {
             throw new CricketAnalyzerException(e.getMessage(),
@@ -31,22 +31,35 @@ public class CricketAnalyzer {
 
 
     public List<IPLBattingCSV> getAvgWiseSortedData() {
-        battingCSVList=battingCSVList.stream()
-                .sorted((data1,data2) -> data2.average - data1.average < 0 ? -1 : 1)
+        battingCSVList = battingCSVList.stream()
+                .sorted((data1, data2) -> data2.average - data1.average < 0 ? -1 : 1)
                 .collect(Collectors.toList());
-        for (int i=0 ; i < battingCSVList.size() ; i++){
-            System.out.println("value of average"+battingCSVList.get(i).average+" "+battingCSVList.get(i).player);
+        for (int i = 0; i < battingCSVList.size(); i++) {
+            System.out.println("value of average" + battingCSVList.get(i).average + " " + battingCSVList.get(i).player);
         }
         return battingCSVList;
     }
 
     public List<IPLBattingCSV> getStrikeRateWiseSortedData() {
-        battingCSVList=battingCSVList.stream()
-                .sorted((data1,data2) -> data2.strikeRate - data1.strikeRate < 0 ? -1 : 1)
+        battingCSVList = battingCSVList.stream()
+                .sorted((data1, data2) -> data2.strikeRate - data1.strikeRate < 0 ? -1 : 1)
                 .collect(Collectors.toList());
-        for (int i=0 ; i < battingCSVList.size() ; i++){
-            System.out.println("value of average"+battingCSVList.get(i).strikeRate+" "+battingCSVList.get(i).player);
+        for (int i = 0; i < battingCSVList.size(); i++) {
+            System.out.println("value of average" + battingCSVList.get(i).strikeRate + " " + battingCSVList.get(i).player);
         }
         return battingCSVList;
     }
+
+    public List<IPLBattingCSV> getBoundaryWiseSortedData() {
+        battingCSVList = battingCSVList.stream()
+                .sorted((data1, data2) -> ((data2.sixes * 6) + (data2.fours * 4)) - ((data1.sixes * 6) + (data1.fours * 4)))
+                .collect(Collectors.toList());
+        for (int i = 0; i < battingCSVList.size(); i++) {
+            System.out.println("value of average" + battingCSVList.get(i).fours + " " + battingCSVList.get(i).sixes + " " + battingCSVList.get(i).player);
+        }
+        return battingCSVList;
+    }
+
+
+
 }

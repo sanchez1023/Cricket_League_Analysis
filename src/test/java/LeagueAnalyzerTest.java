@@ -108,5 +108,21 @@ public class LeagueAnalyzerTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void givenBattingCSVFile_WhenSortedOn_Max6sAnd4s_ShouldReturnSortedResult() {
+        try {
+            CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+            cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_PATH);
+            List<IPLBattingCSV> FoursixWiseSortedData = cricketAnalyzer.getBoundaryWiseSortedData();
+            System.out.println("valu eof 4 and 6"+FoursixWiseSortedData.get(0));
+            Assert.assertEquals("Andre Russell", FoursixWiseSortedData.get(0).player);
+        } catch (CricketAnalyzerException e) {
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CSVBuilderException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

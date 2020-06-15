@@ -21,9 +21,13 @@ public class Sorting {
                         ((player2.getSixes() * 6) + (player2.getFours() * 4)) -
                                 ((player1.getSixes() * 6) + (player1.getFours() * 4));
             case STRIKEFOURSIXES:
-                return getComparator(CricketAnalyzer.ComparatorType.SIXESANDFOUR).
-                        thenComparing(getComparator(CricketAnalyzer.ComparatorType.STRIKERATE))
+                    return getComparator(CricketAnalyzer.ComparatorType.SIXESANDFOUR).
+                            thenComparing(getComparator(CricketAnalyzer.ComparatorType.STRIKERATE))
                         ;
+            case STRIKEAVERAGE:
+                return getComparator(CricketAnalyzer.ComparatorType.AVERAGE.AVERAGE).
+                        thenComparing(getComparator(CricketAnalyzer.ComparatorType.STRIKERATE));
+
             default:
                 return null;
         }

@@ -118,4 +118,20 @@ public class LeagueAnalyzerTest {
     }
     }
 
+    @Test
+    public void whenGivenIplMostRunsCsvData_ShouldSortDataByStrikingRateAndAverage() {
+        try {
+
+
+            CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+            cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_PATH);
+            List<IPLBattingDAO> strikeRateFoursixWiseSortedData = cricketAnalyzer.strikeRateAverageWiseSort();
+            System.out.println("value of 4 and 6"+strikeRateFoursixWiseSortedData.get(0));
+            Assert.assertEquals("MS Dhoni", strikeRateFoursixWiseSortedData.get(0).player);
+        }
+        catch (CricketAnalyzerException e){
+
+        }
+    }
+
 }

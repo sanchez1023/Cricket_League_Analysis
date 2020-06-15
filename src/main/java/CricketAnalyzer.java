@@ -15,7 +15,8 @@ public class CricketAnalyzer {
         AVERAGE,
         STRIKERATE,
         SIXESANDFOUR,
-        STRIKEFOURSIXES
+        STRIKEFOURSIXES,
+        STRIKEAVERAGE
     }
     public List<IPLBattingDAO> battingCSVList = new ArrayList<>();
 
@@ -69,7 +70,10 @@ public class CricketAnalyzer {
         getSortedData(ComparatorType.STRIKEFOURSIXES);
         return battingCSVList;
     }
-
+    public List<IPLBattingDAO> strikeRateAverageWiseSort() {
+        getSortedData(ComparatorType.STRIKEAVERAGE);
+        return battingCSVList;
+    }
 
 
     public void getSortedData(ComparatorType comparatorType) {

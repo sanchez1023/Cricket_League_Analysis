@@ -27,6 +27,10 @@ public class Sorting {
             case STRIKEAVERAGE:
                 return getComparator(CricketAnalyzer.ComparatorType.AVERAGE.AVERAGE).
                         thenComparing(getComparator(CricketAnalyzer.ComparatorType.STRIKERATE));
+            case MAXRUNS:
+                return (IPLBattingDAO player1, IPLBattingDAO player2) ->  player2.getRuns() - (player1.getRuns());
+            case MAXRUNSAVERAGE:
+                return getComparator(CricketAnalyzer.ComparatorType.MAXRUNS).thenComparing(getComparator(CricketAnalyzer.ComparatorType.AVERAGE));
 
             default:
                 return null;

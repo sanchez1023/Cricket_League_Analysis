@@ -16,7 +16,9 @@ public class CricketAnalyzer {
         STRIKERATE,
         SIXESANDFOUR,
         STRIKEFOURSIXES,
-        STRIKEAVERAGE
+        STRIKEAVERAGE,
+        MAXRUNS,
+        MAXRUNSAVERAGE
     }
     public List<IPLBattingDAO> battingCSVList = new ArrayList<>();
 
@@ -75,7 +77,11 @@ public class CricketAnalyzer {
         return battingCSVList;
     }
 
+    public List<IPLBattingDAO> maximumRunsAverageWiseSort() {
+        getSortedData(ComparatorType.MAXRUNSAVERAGE);
+        return battingCSVList;
 
+    }
     public void getSortedData(ComparatorType comparatorType) {
         Sorting sorting =new Sorting();
         battingCSVList.sort(sorting.getComparator(comparatorType));

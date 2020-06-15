@@ -133,5 +133,18 @@ public class LeagueAnalyzerTest {
 
         }
     }
+    @Test
+    public void whenGivenIplMostRunsCsvData_SholdSortDataBaseOnMaximumRunsAndAverage() {
+try {
+    CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+    cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_PATH);
+    List<IPLBattingDAO> maximumRunsAverageWiseSortedData = cricketAnalyzer.maximumRunsAverageWiseSort();
+    System.out.println("value of 4 and 6"+maximumRunsAverageWiseSortedData.get(0));
+    Assert.assertEquals("David Warner ", maximumRunsAverageWiseSortedData.get(0).player);
+}
+catch (CricketAnalyzerException e){
+
+}
+    }
 
 }

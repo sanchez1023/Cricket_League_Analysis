@@ -32,7 +32,7 @@ public class OpenCSVBuilder<E> implements ICSVBuilder {
 
     @Override
     public Iterator getCSVFileIterator(Reader reader, Class csvClass) throws CSVBuilderException {
-        return null;
+        return  this.getCsvBean(reader,csvClass).iterator();
     }
 
     @Override

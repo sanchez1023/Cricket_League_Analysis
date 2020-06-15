@@ -1,6 +1,5 @@
 
 
-
 public class IPLBattingDAO {
     public int position;
     public String player;
@@ -37,11 +36,88 @@ public class IPLBattingDAO {
         sixes = iplBattingCSV.sixes;
     }
 
-    public IPLBattingCSV getBattingDto(){
+
+
+
+    public IPLBattingCSV getIplDto(){
         return new IPLBattingCSV (position ,
                 player ,match ,inns ,notOut ,runs, highScore ,avg, ballFaced,
                 strikeRate ,   hundred , fifty, fours ,sixes);
     }
 
+    public int getPosition() {
+        return position;
+    }
 
+    public String getPlayer() {
+        return player;
+    }
+
+    public int getMatch() {
+        return match;
+    }
+
+    public int getInns() {
+        return inns;
+    }
+
+    public int getNotOut() {
+        return notOut;
+    }
+
+    public int getRuns() {
+        return runs;
+    }
+
+    public String getHighScore() {
+        return highScore;
+    }
+
+    public double getAvg() {
+        return avg;
+    }
+
+    public int getBallFaced() {
+        return ballFaced;
+    }
+
+    public double getStrikeRate() {
+        return strikeRate;
+    }
+
+    public int getHundred() {
+        return hundred;
+    }
+
+    public int getFifty() {
+        return fifty;
+    }
+
+    public int getFours() {
+        return fours;
+    }
+
+    public int getSixes() {
+        return sixes;
+    }
+
+    @Override
+    public String toString() {
+        return "IplLeagueDAO{" +
+                "position=" + position +
+                ", player='" + player + '\'' +
+                ", match=" + match +
+                ", inns=" + inns +
+                ", notOut=" + notOut +
+                ", runs=" + runs +
+                ", highScore='" + highScore + '\'' +
+                ", avg=" + avg +
+                ", ballFaced=" + ballFaced +
+                ", strikeRate=" + strikeRate +
+                ", hundred=" + hundred +
+                ", fifty=" + fifty +
+                ", fours=" + fours +
+                ", sixes=" + sixes +
+                '}';
+    }
 }

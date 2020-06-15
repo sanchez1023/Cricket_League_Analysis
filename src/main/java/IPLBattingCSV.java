@@ -45,8 +45,28 @@ public class IPLBattingCSV {
     public int sixes;
 
     public IPLBattingCSV(int position, String player, int match, int inns, int notOut, int runs, String highScore, double avg, int ballFaced, double strikeRate, int hundred, int fifty, int fours, int sixes) {
+            this.pos = position;
+            this.player = player;
+            this.match = match;
+            this.innings = inns;
+            this.notOut = notOut;
+            this.runs = runs;
+            this.highScore = highScore;
+            this.average = avg;
+            this.ballFaced = ballFaced;
+            this.strikeRate = strikeRate ;
+            this.hundred = hundred;
+            this.fifty = fifty;
+            this.fours = fours;
+            this.sixes = sixes;
+
     }
 
+
+
+    public IPLBattingCSV(){
+
+}
     @Override
     public String toString() {
         return "IPLBattingCSV{" +

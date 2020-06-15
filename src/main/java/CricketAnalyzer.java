@@ -2,27 +2,36 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class CricketAnalyzer {
+
+
+    public  enum ComparatorType{
+        AVERAGE,
+        STRIKERATE,
+        SIXESANDFOUR
+    }
     public List<IPLBattingDAO> battingCSVList = new ArrayList<>();
 
-    public int loadBattingData(String CsvFilePath) throws IOException, CSVBuilderException, CricketAnalyzerException {
+    public int loadBattingData(String CsvFilePath) throws  CricketAnalyzerException {
+        System.out.println("value of string"+CsvFilePath);
 
         try {
             Reader reader = Files.newBufferedReader(Paths.get(CsvFilePath));
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator csvFileIterator = csvBuilder.getCSVFileIterator(reader, IPLBattingCSV.class);
+            Iterator csvFileIterator = csvBuilder.getCSVFileIterator(reader,
+                    IPLBattingCSV.class);
             Iterable<IPLBattingCSV> iterable = () -> csvFileIterator;
             StreamSupport.stream(iterable.spliterator(),false).forEach(data -> battingCSVList.add(new IPLBattingDAO(data)));
+            System.out.println("batting-->"+battingCSVList);
             return battingCSVList.size();
 
 
         } catch (IOException e) {
+
             throw new CricketAnalyzerException(e.getMessage(),
                     CricketAnalyzerException.ExceptionType.BATTING_CSV_FILE_PROBLEM);
         } catch (CSVBuilderException e) {
@@ -35,35 +44,32 @@ public class CricketAnalyzer {
 
 
     public List getAvgWiseSortedData() {
-        List<IPLBattingCSV> iplBattingDto  = battingCSVList.stream()
-                .sorted((data1, data2) -> data2.avg - data1.avg < 0 ? -1 : 1).map(iplLeagueDto-> iplLeagueDto.getBattingDto())
-                .collect(Collectors.toList());
-        for (int i = 0; i < iplBattingDto.size(); i++) {
-            System.out.println("value of average" + iplBattingDto.get(i).average + " " + iplBattingDto.get(i).player);
-        }
-        return iplBattingDto;
+//
+        getSortedData(ComparatorType.AVERAGE);
+        return battingCSVList;
     }
 
     public List getStrikeRateWiseSortedData() {
-        List<IPLBattingCSV> iplBattingDto = battingCSVList.stream()
-                .sorted((data1, data2) -> data2.strikeRate - data1.strikeRate < 0 ? -1 : 1).map(iplLeagueDto-> iplLeagueDto.getBattingDto())
-                .collect(Collectors.toList());
-        for (int i = 0; i < iplBattingDto.size(); i++) {
-            System.out.println("value of average" + iplBattingDto.get(i).strikeRate + " " + iplBattingDto.get(i).player);
-        }
-        return iplBattingDto;
+       getSortedData(ComparatorType.STRIKERATE);
+        return battingCSVList;
+
+
+
     }
 
     public List getBoundaryWiseSortedData() {
-        List<IPLBattingCSV> iplBattingDto = battingCSVList.stream()
-                .sorted((data1, data2) -> ((data2.sixes * 6) + (data2.fours * 4)) - ((data1.sixes * 6) + (data1.fours * 4))).map(iplBattingDAO ->  iplBattingDAO.getBattingDto())
-                .collect(Collectors.toList());
-        for (int i = 0; i < iplBattingDto.size(); i++) {
-            System.out.println("value of average" + iplBattingDto.get(i).fours + " " + iplBattingDto.get(i).sixes + " " + battingCSVList.get(i).player);
-        }
-        return iplBattingDto;
+        getSortedData(ComparatorType.SIXESANDFOUR);
+        return battingCSVList;
+
     }
 
+
+
+    public void getSortedData(ComparatorType comparatorType) {
+        Sorting sorting =new Sorting();
+        battingCSVList.sort(sorting.getComparator(comparatorType));
+
+    }
 
 
 }

@@ -95,11 +95,27 @@ public class LeagueAnalyzerTest {
             CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
             cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_PATH);
             List<IPLBattingDAO> FoursixWiseSortedData = cricketAnalyzer.getBoundaryWiseSortedData();
-            System.out.println("valu eof 4 and 6"+FoursixWiseSortedData.get(0));
+            System.out.println("value of 4 and 6"+FoursixWiseSortedData.get(0));
             Assert.assertEquals("Andre Russell", FoursixWiseSortedData.get(0).player);
         } catch (CricketAnalyzerException e) {
 
         }
 
 }
+    @Test
+    public void whenGivenIplMostRunsCsvData_ShouldSortDataByStrikingRateAndSixesAndFour() {
+    try {
+
+
+        CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+        cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_PATH);
+        List<IPLBattingDAO> strikeRateFoursixWiseSortedData = cricketAnalyzer.strikeRateFoursixWiseSort();
+        System.out.println("value of 4 and 6"+strikeRateFoursixWiseSortedData.get(0));
+        Assert.assertEquals("Andre Russell", strikeRateFoursixWiseSortedData.get(0).player);
+    }
+    catch (CricketAnalyzerException e){
+
+    }
+    }
+
 }

@@ -20,7 +20,10 @@ public class Sorting {
                 return (IPLBattingDAO player1, IPLBattingDAO player2) ->
                         ((player2.getSixes() * 6) + (player2.getFours() * 4)) -
                                 ((player1.getSixes() * 6) + (player1.getFours() * 4));
-
+            case STRIKEFOURSIXES:
+                return getComparator(CricketAnalyzer.ComparatorType.SIXESANDFOUR).
+                        thenComparing(getComparator(CricketAnalyzer.ComparatorType.STRIKERATE))
+                        ;
             default:
                 return null;
         }

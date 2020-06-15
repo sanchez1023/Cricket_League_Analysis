@@ -9,10 +9,13 @@ import java.util.stream.StreamSupport;
 public class CricketAnalyzer {
 
 
+
+
     public  enum ComparatorType{
         AVERAGE,
         STRIKERATE,
-        SIXESANDFOUR
+        SIXESANDFOUR,
+        STRIKEFOURSIXES
     }
     public List<IPLBattingDAO> battingCSVList = new ArrayList<>();
 
@@ -61,6 +64,10 @@ public class CricketAnalyzer {
         getSortedData(ComparatorType.SIXESANDFOUR);
         return battingCSVList;
 
+    }
+    public List<IPLBattingDAO> strikeRateFoursixWiseSort() {
+        getSortedData(ComparatorType.STRIKEFOURSIXES);
+        return battingCSVList;
     }
 
 

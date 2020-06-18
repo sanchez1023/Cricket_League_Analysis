@@ -132,4 +132,8 @@ public class CricketAnalyzer {
         getSortedData(ComparatorType.ECONOMY);
         return  csvList;
     }
+    public List<IPLBattingDAO> getSR5w4w() {
+        getSortedData(ComparatorType.STRIKERATE5W4W);
+        return csvList;
+    }
 }

@@ -197,5 +197,17 @@ public class LeagueAnalyzerTest {
         }
     }
 
+    @Test
+    public void givenBowlingCSVFile_WhenSortedOnStrikeRate_With5wAnd4w_ShouldReturnSortedResult() {
+        try {
+            CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+            cricketAnalyzer.loadBowlingDataFile(BOWLING_CSV_FILE_PATH);
+            List<IPLBattingDAO> sortedData = cricketAnalyzer.getSR5w4w();
+            sortedData.forEach(System.out::println);
+            Assert.assertEquals("Kagiso Rabada", sortedData.get(0).player);
+        } catch (CricketAnalyzerException e) {
+
+        }
+    }
 
 }

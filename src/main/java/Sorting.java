@@ -38,6 +38,12 @@ public class Sorting {
                 return (IPLBattingDAO player1, IPLBattingDAO player2) -> (int) (player2.getBowlingavg() - (player1.getBowlingavg()));
             case ECONOMY:
                 return (IPLBattingDAO  player1,IPLBattingDAO player2)-> (int) (player2.getEcon()-(player1.getEcon()));
+            case STRIKERATE5W4W:
+                return (IPLBattingDAO,iplBowlingDAO)-> {
+                    double batAvgSR = (iplBowlingDAO.getOver() * 6 / (iplBowlingDAO.getFiveWickets() * 5 + iplBowlingDAO.getFourWickets() * 4));
+                    return (int) batAvgSR;
+
+                };
                 default:
                 return null;
         }

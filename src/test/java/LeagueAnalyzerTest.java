@@ -221,5 +221,17 @@ public class LeagueAnalyzerTest {
         }
 
     }
+    @Test
+    public void givenBowlingCSVFile_WhenSortedOnMaxWkts_WithBestAvg_ShouldReturnSortedResult() {
+        try {
+            CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+            cricketAnalyzer.loadBowlingDataFile(BOWLING_CSV_FILE_PATH);
+            List<IPLBattingDAO> sortedData = cricketAnalyzer.bestAverageandMaxwickets();
+
+            Assert.assertEquals("Imran Tahir", sortedData.get(0).player);
+        } catch (CricketAnalyzerException e) {
+
+        }
+    }
 
 }

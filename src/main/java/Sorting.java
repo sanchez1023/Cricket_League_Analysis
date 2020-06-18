@@ -47,6 +47,13 @@ public class Sorting {
             case AVERAGES_STRIKERATE:
                 return getComparator(CricketAnalyzer.ComparatorType.STRIKERATE).
                         thenComparing(getComparator(CricketAnalyzer.ComparatorType.BOWLINGAVERAGE));
+            case MAXWICKETS:
+                return (IPLBattingDAO  player1,IPLBattingDAO player2)-> (int) (player2.getWickets()-(player1.getWickets()));
+
+
+            case WICKETS_AVERAGES:
+                return getComparator(CricketAnalyzer.ComparatorType.MAXWICKETS).
+                        thenComparing(getComparator(CricketAnalyzer.ComparatorType.BOWLINGAVERAGE));
                 default:
                 return null;
         }

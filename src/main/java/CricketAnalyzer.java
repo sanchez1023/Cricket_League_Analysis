@@ -140,4 +140,8 @@ public class CricketAnalyzer {
         getSortedData(ComparatorType.AVERAGES_STRIKERATE);
         return  csvList;
     }
+    public List<IPLBattingDAO> bestAverageandMaxwickets() {
+        getSortedData(ComparatorType.WICKETS_AVERAGES);
+        return  csvList;
+    }
 }

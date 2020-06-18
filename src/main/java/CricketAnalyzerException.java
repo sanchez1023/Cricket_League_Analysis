@@ -5,7 +5,8 @@ public class CricketAnalyzerException extends Exception{
 
 
         INCORRECT_FILE_DATA ,
-         IPL_BOWLING_FILE_PROBLEM  ;
+         IPL_BOWLING_FILE_PROBLEM,
+         IPL_FILE_PROBLEM;
     }
 
     ExceptionType type;

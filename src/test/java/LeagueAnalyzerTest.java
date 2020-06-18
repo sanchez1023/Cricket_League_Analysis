@@ -35,7 +35,7 @@ public class LeagueAnalyzerTest {
             expectedException.expect(CricketAnalyzerException.class);
             cricketAnalyzer.loadBattingData(WRONG_BATTING_CSV_FILE_PATH);
         } catch (CricketAnalyzerException e) {
-            Assert.assertEquals(CricketAnalyzerException.ExceptionType.BATTING_CSV_FILE_PROBLEM, e.type);
+            Assert.assertEquals(CricketAnalyzerException.ExceptionType.IPL_FILE_PROBLEM, e.type);
 
         }
     }
@@ -156,7 +156,7 @@ public class LeagueAnalyzerTest {
             CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
             int numOfRecords = cricketAnalyzer.loadBowlingDataFile(BOWLING_CSV_FILE_PATH);
             System.out.println("value in test" + numOfRecords);
-            Assert.assertEquals(98, numOfRecords);
+            Assert.assertEquals(99, numOfRecords);
         } catch (CricketAnalyzerException e) {
 
         }

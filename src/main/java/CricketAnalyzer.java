@@ -124,6 +124,9 @@ public class CricketAnalyzer {
         }
     }
 
-
+    public List<IPLBattingDAO> bowlingAverageWiseSort() {
+        getSortedData(ComparatorType.BOWLINGAVERAGE);
+        return csvList;
+    }
 
 }

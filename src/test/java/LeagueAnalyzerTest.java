@@ -161,7 +161,17 @@ public class LeagueAnalyzerTest {
 
         }
     }
-
+    @Test
+    public void givenBowlingCSVFile_whenSortedBowlingAveragewise() {
+        try {
+            CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+            cricketAnalyzer.loadBowlingDataFile(BOWLING_CSV_FILE_PATH);
+            List<IPLBattingDAO> bowlingAverageWiseSortedData = cricketAnalyzer.bowlingAverageWiseSort();
+            Assert.assertEquals("Anukul Roy", bowlingAverageWiseSortedData.get(0).player);
+        } catch (CricketAnalyzerException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

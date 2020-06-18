@@ -173,5 +173,18 @@ public class LeagueAnalyzerTest {
         }
     }
 
+    @Test
+    public void givenBowlingCSVFile_WhenSortedOnSR_ShouldReturnSortedResult() {
+        try {
+            CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+            cricketAnalyzer.loadBowlingDataFile(BOWLING_CSV_FILE_PATH);
+            List<IPLBattingDAO> strikeRateWiseSortedData = cricketAnalyzer.getStrikeRateWiseSortedData();
+            System.out.println("sorted data" + strikeRateWiseSortedData.get(0));
+            Assert.assertEquals("Alzarri Joseph", strikeRateWiseSortedData.get(0).player);
+        } catch (CricketAnalyzerException e) {
+
+        }
+    }
+
 
 }

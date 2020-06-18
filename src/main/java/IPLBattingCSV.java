@@ -9,7 +9,7 @@ public class IPLBattingCSV {
     public String player;
 
     @CsvBindByName(column = "Mat")
-    public int match;
+    public int matches;
 
     @CsvBindByName(column = "Inns")
     public int innings;
@@ -47,7 +47,7 @@ public class IPLBattingCSV {
     public IPLBattingCSV(int position, String player, int match, int inns, int notOut, int runs, String highScore, double avg, int ballFaced, double strikeRate, int hundred, int fifty, int fours, int sixes) {
             this.pos = position;
             this.player = player;
-            this.match = match;
+            this.matches = match;
             this.innings = inns;
             this.notOut = notOut;
             this.runs = runs;
@@ -72,7 +72,7 @@ public class IPLBattingCSV {
         return "IPLBattingCSV{" +
                 "pos=" + pos +
                 ", player='" + player + '\'' +
-                ", match=" + match +
+                ", match=" + matches +
                 ", innings=" + innings +
                 ", notOut=" + notOut +
                 ", runs=" + runs +

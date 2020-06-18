@@ -8,7 +8,7 @@ public class Sorting {
             case AVERAGE:
 
 
-                return (IPLBattingDAO player1, IPLBattingDAO player2) -> (int) (player2.getAvg() - (player1.getAvg()));
+                return (IPLBattingDAO player1, IPLBattingDAO player2) -> (int) (player2.getBattingAvg() - (player1.getBattingAvg()));
 
             case STRIKERATE:
 
@@ -25,14 +25,17 @@ public class Sorting {
                             thenComparing(getComparator(CricketAnalyzer.ComparatorType.STRIKERATE))
                         ;
             case STRIKEAVERAGE:
-                return getComparator(CricketAnalyzer.ComparatorType.AVERAGE.AVERAGE).
-                        thenComparing(getComparator(CricketAnalyzer.ComparatorType.STRIKERATE));
+                return (IPLBattingDAO,iplBattingDAO)->{
+                            double strikeRate = ((IPLBattingDAO.fours * 4) + (IPLBattingDAO.sixes * 6))*100 / IPLBattingDAO.ballFaced;
+                     return (int) strikeRate;
+                        };
+//
             case MAXRUNS:
                 return (IPLBattingDAO player1, IPLBattingDAO player2) ->  player2.getRuns() - (player1.getRuns());
             case MAXRUNSAVERAGE:
                 return getComparator(CricketAnalyzer.ComparatorType.MAXRUNS).thenComparing(getComparator(CricketAnalyzer.ComparatorType.AVERAGE));
 
-            default:
+                default:
                 return null;
         }
     }

@@ -1,48 +1,92 @@
 
 
 public class IPLBattingDAO {
+    public Double over;
+    public int wickets;
+    public int bbi;
+    public Double econ;
+    public int fourWickets;
+    public int fiveWickets;
     public int position;
     public String player;
-    public int match;
+    public int matches;
     public int inns;
     public int notOut;
     public int runs;
     public String highScore;
-    public double avg;
+    public double battingavg;
+    public double bowlingavg;
     public int ballFaced;
     public double strikeRate;
     public int hundred;
     public int fifty;
     public int fours;
     public int sixes;
+    public int innings;
 
-    public IPLBattingDAO() {
-    }
 
     public IPLBattingDAO(IPLBattingCSV iplBattingCSV) {
-        position = iplBattingCSV.pos;
-        player = iplBattingCSV.player;
-        match = iplBattingCSV.match;
-        inns = iplBattingCSV.innings;
         notOut = iplBattingCSV.notOut;
         runs = iplBattingCSV.runs;
         highScore = iplBattingCSV.highScore;
-        avg = iplBattingCSV.average;
+        battingavg = iplBattingCSV.average;
         ballFaced = iplBattingCSV.ballFaced;
         strikeRate = iplBattingCSV.strikeRate;
         hundred = iplBattingCSV.hundred;
-        fifty = iplBattingCSV.fifty;
-        fours = iplBattingCSV.fours;
-        sixes = iplBattingCSV.sixes;
+    }
+
+    public Double getOver() {
+        return over;
+    }
+
+    public void setOver(Double over) {
+        this.over = over;
+    }
+
+    public IPLBattingDAO(IPLBowlingCSV iplBowlingCSV) {
+
+//        System.out.println("inside dao"+iplBowlingCSV);
+        player=iplBowlingCSV.playerName;
+        matches=iplBowlingCSV.matches;
+        innings=iplBowlingCSV.innings;
+        fiveWickets=iplBowlingCSV.fiveWicket;
+        wickets = iplBowlingCSV.wickets;
+        over=iplBowlingCSV.overs;
+        bbi = iplBowlingCSV.bbi;
+        bowlingavg = iplBowlingCSV.average;
+        econ = iplBowlingCSV.economeyRate;
+        strikeRate = iplBowlingCSV.strikeRate;
+        fourWickets = iplBowlingCSV.fourWicket;
     }
 
 
 
+    public IPLBattingCSV getIplDto() {
+        return new IPLBattingCSV(position,
+                player, matches, inns, notOut, runs, highScore, battingavg, ballFaced,
+                strikeRate, hundred, fifty, fours, sixes);
 
-    public IPLBattingCSV getIplDto(){
-        return new IPLBattingCSV (position ,
-                player ,match ,inns ,notOut ,runs, highScore ,avg, ballFaced,
-                strikeRate ,   hundred , fifty, fours ,sixes);
+    }
+
+
+//    public  IPLBowlingCSV getBowlingDto(){
+//        return  new IPLBowlingCSV(position,player,matches,innings,over,runs,wickets,bowlingavg,bbi,strikeRate,econ,fourWickets,fiveWickets);
+//    }
+
+    public int getFiveWickets() {
+        return fiveWickets;
+    }
+
+    public int getWickets() {
+        return wickets;
+    }
+
+    public int getFourWickets() {
+        return fourWickets;
+    }
+
+    public Double getEcon() {
+        return econ;
     }
 
     public int getPosition() {
@@ -54,7 +98,7 @@ public class IPLBattingDAO {
     }
 
     public int getMatch() {
-        return match;
+        return matches;
     }
 
     public int getInns() {
@@ -73,8 +117,12 @@ public class IPLBattingDAO {
         return highScore;
     }
 
-    public double getAvg() {
-        return avg;
+    public double getBattingAvg() {
+        return battingavg;
+    }
+
+    public double getBowlingavg() {
+        return bowlingavg;
     }
 
     public int getBallFaced() {
@@ -106,18 +154,25 @@ public class IPLBattingDAO {
         return "IplLeagueDAO{" +
                 "position=" + position +
                 ", player='" + player + '\'' +
-                ", match=" + match +
+                ", match=" + matches +
                 ", inns=" + inns +
                 ", notOut=" + notOut +
                 ", runs=" + runs +
                 ", highScore='" + highScore + '\'' +
-                ", avg=" + avg +
+                ", avg=" + battingavg +
+                ".bowligavg="+bowlingavg+
                 ", ballFaced=" + ballFaced +
                 ", strikeRate=" + strikeRate +
                 ", hundred=" + hundred +
                 ", fifty=" + fifty +
                 ", fours=" + fours +
                 ", sixes=" + sixes +
+                ", over=" + over +
+                ", wickets=" + wickets +
+                ", bbi=" + bbi +
+                ", econ=" + econ +
+                ", fourWickets=" + fourWickets +
+                ", fiveWickets=" + fiveWickets +
                 '}';
     }
 }

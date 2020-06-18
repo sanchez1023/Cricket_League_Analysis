@@ -6,25 +6,27 @@ import java.io.IOException;
 import java.util.List;
 
 public class LeagueAnalyzerTest {
+    private static final String BOWLING_CSV_FILE_PATH = "./src/test/resources/wicket.csv";
 
     private static final String BATTING_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
     private static final String WRONG_BATTING_CSV_FILE_PATH = "/home/admin1/Documents/CricketLeagueAnalyzer/src/main/resources/IPL2019FactsheetMostRuns.csv";
     private static final String WRONG_BATTING_CSV_FILE_TYPE = "./src/test/resources/IPL2019FactsheetMostRuns.txt";
     private static final String BATTING_CSV_FILE_WITH_WRONG_DELIMETER = "./src/test/resources/IPL2019FactsheetMostRunsDelimeter.csv";
+
     @Test
     public void givenBattingCsvFile_ShouldReturnCsvFileData() throws CricketAnalyzerException {
         try {
 
             CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
             int numberOfRecords = cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_PATH);
-            System.out.println("num of recoreds"+numberOfRecords);
+            System.out.println("num of recoreds" + numberOfRecords);
             Assert.assertEquals(101, numberOfRecords);
-        }
-        catch (CricketAnalyzerException e){
+        } catch (CricketAnalyzerException e) {
 
         }
 
     }
+
     @Test
     public void givenBattingCSVFile_WithWrongFilePath_ShouldThrowException() {
         try {
@@ -32,7 +34,7 @@ public class LeagueAnalyzerTest {
             ExpectedException expectedException = ExpectedException.none();
             expectedException.expect(CricketAnalyzerException.class);
             cricketAnalyzer.loadBattingData(WRONG_BATTING_CSV_FILE_PATH);
-        } catch (CricketAnalyzerException e){
+        } catch (CricketAnalyzerException e) {
             Assert.assertEquals(CricketAnalyzerException.ExceptionType.BATTING_CSV_FILE_PROBLEM, e.type);
 
         }
@@ -63,31 +65,33 @@ public class LeagueAnalyzerTest {
 
         }
     }
+
     @Test
     public void givenBattingCSVFile_WhenSortedOnAvg_ShouldReturnSortedResult() {
         try {
             CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
             cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_PATH);
             List<IPLBattingDAO> avgWiseSortedData = cricketAnalyzer.getAvgWiseSortedData();
-            System.out.println("average"+avgWiseSortedData.get(0));
-            Assert.assertEquals(83.2, avgWiseSortedData.get(0).avg, 0);
+            System.out.println("average" + avgWiseSortedData.get(0));
+            Assert.assertEquals(83.2, avgWiseSortedData.get(0).battingavg, 0);
         } catch (CricketAnalyzerException e) {
         }
 
     }
+
     @Test
     public void givenBattingCSVFile_WhenSortedOnSR_ShouldReturnSortedResult() {
-            try {
-                CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
-                cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_PATH);
-                List<IPLBattingDAO> strikeRateWiseSortedData = cricketAnalyzer.getStrikeRateWiseSortedData();
-                Assert.assertEquals(333.33, strikeRateWiseSortedData.get(0).strikeRate, 0);
-                System.out.println("strike rate" + strikeRateWiseSortedData.get(0));
+        try {
+            CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+            cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_PATH);
+            List<IPLBattingDAO> strikeRateWiseSortedData = cricketAnalyzer.getStrikeRateWiseSortedData();
+            Assert.assertEquals(333.33, strikeRateWiseSortedData.get(0).strikeRate, 0);
+            System.out.println("strike rate" + strikeRateWiseSortedData.get(0));
 
-            } catch (CricketAnalyzerException e) {
+        } catch (CricketAnalyzerException e) {
 
-            }
         }
+    }
 
     @Test
     public void givenBattingCSVFile_WhenSortedOn_Max6sAnd4s_ShouldReturnSortedResult() {
@@ -95,27 +99,27 @@ public class LeagueAnalyzerTest {
             CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
             cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_PATH);
             List<IPLBattingDAO> FoursixWiseSortedData = cricketAnalyzer.getBoundaryWiseSortedData();
-            System.out.println("value of 4 and 6"+FoursixWiseSortedData.get(0));
+            System.out.println("value of 4 and 6" + FoursixWiseSortedData.get(0));
             Assert.assertEquals("Andre Russell", FoursixWiseSortedData.get(0).player);
         } catch (CricketAnalyzerException e) {
 
         }
 
-}
+    }
+
     @Test
     public void whenGivenIplMostRunsCsvData_ShouldSortDataByStrikingRateAndSixesAndFour() {
-    try {
+        try {
 
 
-        CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
-        cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_PATH);
-        List<IPLBattingDAO> strikeRateFoursixWiseSortedData = cricketAnalyzer.strikeRateFoursixWiseSort();
-        System.out.println("value of 4 and 6"+strikeRateFoursixWiseSortedData.get(0));
-        Assert.assertEquals("Andre Russell", strikeRateFoursixWiseSortedData.get(0).player);
-    }
-    catch (CricketAnalyzerException e){
+            CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+            cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_PATH);
+            List<IPLBattingDAO> strikeRateFoursixWiseSortedData = cricketAnalyzer.strikeRateFoursixWiseSort();
+            System.out.println("value of 4 and 6" + strikeRateFoursixWiseSortedData.get(0));
+            Assert.assertEquals("Andre Russell", strikeRateFoursixWiseSortedData.get(0).player);
+        } catch (CricketAnalyzerException e) {
 
-    }
+        }
     }
 
     @Test
@@ -126,25 +130,38 @@ public class LeagueAnalyzerTest {
             CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
             cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_PATH);
             List<IPLBattingDAO> strikeRateFoursixWiseSortedData = cricketAnalyzer.strikeRateAverageWiseSort();
-            System.out.println("value of 4 and 6"+strikeRateFoursixWiseSortedData.get(0));
-            Assert.assertEquals("MS Dhoni", strikeRateFoursixWiseSortedData.get(0).player);
-        }
-        catch (CricketAnalyzerException e){
+            System.out.println("value of 4 and 6" + strikeRateFoursixWiseSortedData.get(0));
+            Assert.assertEquals("David Warner ", strikeRateFoursixWiseSortedData.get(0).player);
+        } catch (CricketAnalyzerException e) {
 
         }
     }
+
     @Test
     public void whenGivenIplMostRunsCsvData_SholdSortDataBaseOnMaximumRunsAndAverage() {
-try {
-    CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
-    cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_PATH);
-    List<IPLBattingDAO> maximumRunsAverageWiseSortedData = cricketAnalyzer.maximumRunsAverageWiseSort();
-    System.out.println("value of 4 and 6"+maximumRunsAverageWiseSortedData.get(0));
-    Assert.assertEquals("David Warner ", maximumRunsAverageWiseSortedData.get(0).player);
-}
-catch (CricketAnalyzerException e){
+        try {
+            CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+            cricketAnalyzer.loadBattingData(BATTING_CSV_FILE_PATH);
+            List<IPLBattingDAO> maximumRunsAverageWiseSortedData = cricketAnalyzer.maximumRunsAverageWiseSort();
+            System.out.println("value of 4 and 6" + maximumRunsAverageWiseSortedData.get(0));
+            Assert.assertEquals("David Warner ", maximumRunsAverageWiseSortedData.get(0).player);
+        } catch (CricketAnalyzerException e) {
 
-}
+        }
     }
+
+    @Test
+    public void givenBowlingCSVFile_ShouldReturnCSVFileData() {
+        try {
+            CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+            int numOfRecords = cricketAnalyzer.loadBowlingDataFile(BOWLING_CSV_FILE_PATH);
+            System.out.println("value in test" + numOfRecords);
+            Assert.assertEquals(98, numOfRecords);
+        } catch (CricketAnalyzerException e) {
+
+        }
+    }
+
+
 
 }

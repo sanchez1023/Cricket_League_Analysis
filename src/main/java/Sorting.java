@@ -36,6 +36,8 @@ public class Sorting {
                 return getComparator(CricketAnalyzer.ComparatorType.MAXRUNS).thenComparing(getComparator(CricketAnalyzer.ComparatorType.AVERAGE));
             case BOWLINGAVERAGE:
                 return (IPLBattingDAO player1, IPLBattingDAO player2) -> (int) (player2.getBowlingavg() - (player1.getBowlingavg()));
+            case ECONOMY:
+                return (IPLBattingDAO  player1,IPLBattingDAO player2)-> (int) (player2.getEcon()-(player1.getEcon()));
                 default:
                 return null;
         }

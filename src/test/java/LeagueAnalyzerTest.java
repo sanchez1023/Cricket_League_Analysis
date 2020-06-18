@@ -185,6 +185,17 @@ public class LeagueAnalyzerTest {
 
         }
     }
+    @Test
+    public void givenBowlingCSVFile_WhenSortedOnEconomy_ShouldReturnSortedResult() {
+        try {
+            CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+            cricketAnalyzer.loadBowlingDataFile(BOWLING_CSV_FILE_PATH);
+            List<IPLBattingDAO> sortedData = cricketAnalyzer.getEcnomywiseSort();
+            sortedData.forEach(System.out::println);
+            Assert.assertEquals("Shivam Dube", sortedData.get(0).player);
+        } catch (CricketAnalyzerException e) {
+        }
+    }
 
 
 }

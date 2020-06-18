@@ -128,5 +128,8 @@ public class CricketAnalyzer {
         getSortedData(ComparatorType.BOWLINGAVERAGE);
         return csvList;
     }
-
+    public List<IPLBattingDAO> getEcnomywiseSort() {
+        getSortedData(ComparatorType.ECONOMY);
+        return  csvList;
+    }
 }

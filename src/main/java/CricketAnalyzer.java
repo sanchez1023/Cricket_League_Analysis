@@ -8,8 +8,7 @@ import java.util.stream.StreamSupport;
 public class CricketAnalyzer {
 
 
-
-    public  enum ComparatorType{
+    public enum ComparatorType {
         AVERAGE,
         STRIKERATE,
         SIXESANDFOUR,
@@ -27,14 +26,15 @@ public class CricketAnalyzer {
         WICKETS_AVERAGES
     }
 
-    public enum  CSVtype{
+    public enum CSVtype {
         BATTING,
         BOWLING
     }
+
     public List<IPLBattingDAO> csvList = new ArrayList<>();
 
-    public int loadBattingData(String CsvFilePath) throws  CricketAnalyzerException {
-        System.out.println("value of string"+CsvFilePath);
+    public int loadBattingData(String CsvFilePath) throws CricketAnalyzerException {
+        System.out.println("value of string" + CsvFilePath);
 
 //        try {
 //            Reader reader = Files.newBufferedReader(Paths.get(CsvFilePath));
@@ -57,7 +57,7 @@ public class CricketAnalyzer {
 //            throw new CricketAnalyzerException(e.getMessage(),
 //                    CricketAnalyzerException.ExceptionType.INCORRECT_FILE_DATA);
 //        }
-return  loadFileData(CsvFilePath,IPLBattingCSV.class,CSVtype.BATTING);
+        return loadFileData(CsvFilePath, IPLBattingCSV.class, CSVtype.BATTING);
     }
 
 
@@ -68,9 +68,8 @@ return  loadFileData(CsvFilePath,IPLBattingCSV.class,CSVtype.BATTING);
     }
 
     public List getStrikeRateWiseSortedData() {
-       getSortedData(ComparatorType.STRIKERATE);
+        getSortedData(ComparatorType.STRIKERATE);
         return csvList;
-
 
 
     }
@@ -80,10 +79,12 @@ return  loadFileData(CsvFilePath,IPLBattingCSV.class,CSVtype.BATTING);
         return csvList;
 
     }
+
     public List<IPLBattingDAO> strikeRateFoursixWiseSort() {
         getSortedData(ComparatorType.STRIKEFOURSIXES);
         return csvList;
     }
+
     public List<IPLBattingDAO> strikeRateAverageWiseSort() {
         getSortedData(ComparatorType.STRIKEAVERAGE);
         return csvList;
@@ -94,13 +95,15 @@ return  loadFileData(CsvFilePath,IPLBattingCSV.class,CSVtype.BATTING);
         return csvList;
 
     }
+
     public void getSortedData(ComparatorType comparatorType) {
-        Sorting sorting =new Sorting();
+        Sorting sorting = new Sorting();
         csvList.sort(sorting.getComparator(comparatorType));
 
     }
+
     public int loadBowlingDataFile(String csvFilePath) throws CricketAnalyzerException {
-        System.out.println("inloading bowlinfg data"+csvFilePath);
+        System.out.println("inloading bowlinfg data" + csvFilePath);
 //        try {
 //            Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
 //            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
@@ -126,56 +129,38 @@ return  loadFileData(CsvFilePath,IPLBattingCSV.class,CSVtype.BATTING);
 //            throw new CricketAnalyzerException("in runt ime "+e.getMessage(),
 //                    CricketAnalyzerException.ExceptionType.INCORRECT_FILE_DATA);
 //        }
-        return loadFileData(csvFilePath, IPLBowlingCSV.class,CSVtype.BOWLING);
+        return loadFileData(csvFilePath, IPLBowlingCSV.class, CSVtype.BOWLING);
     }
 
     public List<IPLBattingDAO> bowlingAverageWiseSort() {
         getSortedData(ComparatorType.BOWLINGAVERAGE);
         return csvList;
     }
+
     public List<IPLBattingDAO> getEcnomywiseSort() {
         getSortedData(ComparatorType.ECONOMY);
-        return  csvList;
+        return csvList;
     }
+
     public List<IPLBattingDAO> getSR5w4w() {
         getSortedData(ComparatorType.STRIKERATE5W4W);
         return csvList;
     }
+
     public List<IPLBattingDAO> getStrikeRateAndAverage() {
         getSortedData(ComparatorType.AVERAGES_STRIKERATE);
-        return  csvList;
-    }
-    public List<IPLBattingDAO> bestAverageandMaxwickets() {
-        getSortedData(ComparatorType.WICKETS_AVERAGES);
-        return  csvList;
+        return csvList;
     }
 
-    private  <E> int loadFileData(String csvFilePath, Class<E> iplCSVClass, CSVtype csvType) throws CricketAnalyzerException {
-        try {
-            Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
-            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<E> csvFileIterator = csvBuilder.getCSVFileIterator(reader, iplCSVClass);
-            Iterable<E> iterable = () -> csvFileIterator;
-            if (csvType.equals("BATTING")) {
-                StreamSupport.stream(iterable.spliterator(), false)
-                        .map(IPLBattingCSV.class::cast)
-                        .forEach(data -> csvList.add(new IPLBattingDAO(data)));
-            } else {
-                StreamSupport.stream(iterable.spliterator(), false)
-                        .map(IPLBowlingCSV.class::cast)
-                        .forEach(data -> csvList.add(new IPLBattingDAO(data)));
-            }
-//
-            return csvList.size();
-        } catch (IOException e) {
-            throw new CricketAnalyzerException(e.getMessage(),
-                    CricketAnalyzerException.ExceptionType.IPL_FILE_PROBLEM);
-        }
-        catch (CSVBuilderException e) {
-            throw new CricketAnalyzerException(e.getMessage(), e.type.name());
-        } catch (RuntimeException e) {
-            throw new CricketAnalyzerException(e.getMessage(),
-                    CricketAnalyzerException.ExceptionType.INCORRECT_FILE_DATA);
-        }
+    public List<IPLBattingDAO> bestAverageandMaxwickets() {
+        getSortedData(ComparatorType.WICKETS_AVERAGES);
+        return csvList;
+    }
+
+    private <E> int loadFileData(String csvFilePath, Class<E> iplCSVClass, CSVtype csvType) throws CricketAnalyzerException {
+        csvList = new IPLAdapterFactory().getFileData(csvType, csvFilePath);
+        int listSize = csvList.size();
+
+        return listSize;
     }
 }

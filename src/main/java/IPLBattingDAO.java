@@ -26,6 +26,9 @@ public class IPLBattingDAO {
 
 
     public IPLBattingDAO(IPLBattingCSV iplBattingCSV) {
+        player=iplBattingCSV.player;
+        matches=iplBattingCSV.matches;
+        innings=iplBattingCSV.innings;
         notOut = iplBattingCSV.notOut;
         runs = iplBattingCSV.runs;
         highScore = iplBattingCSV.highScore;

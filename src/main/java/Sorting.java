@@ -44,6 +44,9 @@ public class Sorting {
                     return (int) batAvgSR;
 
                 };
+            case AVERAGES_STRIKERATE:
+                return getComparator(CricketAnalyzer.ComparatorType.STRIKERATE).
+                        thenComparing(getComparator(CricketAnalyzer.ComparatorType.BOWLINGAVERAGE));
                 default:
                 return null;
         }

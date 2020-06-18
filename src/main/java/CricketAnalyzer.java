@@ -136,4 +136,8 @@ public class CricketAnalyzer {
         getSortedData(ComparatorType.STRIKERATE5W4W);
         return csvList;
     }
+    public List<IPLBattingDAO> getStrikeRateAndAverage() {
+        getSortedData(ComparatorType.AVERAGES_STRIKERATE);
+        return  csvList;
+    }
 }

@@ -209,5 +209,17 @@ public class LeagueAnalyzerTest {
 
         }
     }
+    @Test
+    public void givenBowlingCSVFile_WhenSortedOnAverages_WithStrikeRate_ShouldReturnSortedResult() {
+        try {
+            CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+            cricketAnalyzer.loadBowlingDataFile(BOWLING_CSV_FILE_PATH);
+            List<IPLBattingDAO> sortedData = cricketAnalyzer.getStrikeRateAndAverage();
+//            sortedData.forEach(System.out::println);
+            Assert.assertEquals("Anukul Roy", sortedData.get(0).player);
+        } catch (CricketAnalyzerException e) {
+        }
+
+    }
 
 }

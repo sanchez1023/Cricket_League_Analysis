@@ -243,7 +243,19 @@ public class LeagueAnalyzerTest {
         CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
         cricketAnalyzer.loadFileData(CricketAnalyzer.CSVtype.ALLROUNDER, BATTING_CSV_FILE_PATH, BOWLING_CSV_FILE_PATH);
         List<IPLBattingDAO> sortedData = cricketAnalyzer.getBowlingandBattingAverage();
-        Assert.assertEquals(49, sortedData.size());
+        Assert.assertEquals("Andre Russell", sortedData.get(0).player);
     }
 
+    @Test
+    public void givenBattingBowlingCSVFile_WhenSortedOn_MostRunsAndWkts_ShouldReturnSortedResult() {
+        try {
+            CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+            cricketAnalyzer.loadFileData(CricketAnalyzer.CSVtype.ALLROUNDER, BATTING_CSV_FILE_PATH, BOWLING_CSV_FILE_PATH);
+            List<IPLBattingDAO> sortedData = cricketAnalyzer.getMostRunsAndWicket();
+            Assert.assertEquals("Andre Russell", sortedData.get(0).player);
+
+        } catch (CricketAnalyzerException e) {
+            e.printStackTrace();
+        }
+    }
 }

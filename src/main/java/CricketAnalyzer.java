@@ -9,6 +9,7 @@ public class CricketAnalyzer {
 
 
 
+
     public enum ComparatorType {
         AVERAGE,
         STRIKERATE,
@@ -25,7 +26,8 @@ public class CricketAnalyzer {
         AVERAGES_STRIKERATE,
         MAXWICKETS,
         WICKETS_AVERAGES,
-        BATTING_BOWLING_AVERAGE
+        BATTING_BOWLING_AVERAGE,
+        MOST_RUNS_WKTS
     }
 
     public enum CSVtype {
@@ -163,7 +165,10 @@ public class CricketAnalyzer {
         getSortedData(ComparatorType.BATTING_BOWLING_AVERAGE);
         return csvList;
     }
-
+    public List<IPLBattingDAO> getMostRunsAndWicket() {
+        getSortedData(ComparatorType.MOST_RUNS_WKTS);
+        return csvList;
+    }
 
     public  <E> int loadFileData( CSVtype csvType, String... csvFilePath) throws CricketAnalyzerException {
         csvList = new IPLAdapterFactory().getFileData(csvType, csvFilePath);

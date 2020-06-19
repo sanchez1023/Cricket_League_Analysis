@@ -55,7 +55,14 @@ public class Sorting {
                 return getComparator(CricketAnalyzer.ComparatorType.MAXWICKETS).
                         thenComparing(getComparator(CricketAnalyzer.ComparatorType.BOWLINGAVERAGE));
             case BATTING_BOWLING_AVERAGE:
-                return  getComparator(CricketAnalyzer.ComparatorType.BOWLINGAVERAGE).thenComparing(getComparator(CricketAnalyzer.ComparatorType.AVERAGE));
+                return  (Comparator.comparing((IPLBattingDAO player) -> {
+                    if (
+                            player.getBowlingavg() != 0.0 && player.getBattingAvg() != 0.0)
+                        return player.getBattingAvg() - player.getBowlingavg();
+                    return player.getBattingAvg() - 1000;
+                }).reversed());
+            case MOST_RUNS_WKTS:
+                return (Comparator.comparing(IPLBattingDAO::getRuns).thenComparing(IPLBattingDAO::getWickets).reversed());
                 default:
                 return null;
         }

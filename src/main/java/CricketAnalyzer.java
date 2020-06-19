@@ -8,6 +8,7 @@ import java.util.stream.StreamSupport;
 public class CricketAnalyzer {
 
 
+
     public enum ComparatorType {
         AVERAGE,
         STRIKERATE,
@@ -23,12 +24,14 @@ public class CricketAnalyzer {
         FOURWICKET,
         AVERAGES_STRIKERATE,
         MAXWICKETS,
-        WICKETS_AVERAGES
+        WICKETS_AVERAGES,
+        BATTING_BOWLING_AVERAGE
     }
 
     public enum CSVtype {
         BATTING,
-        BOWLING
+        BOWLING,
+        ALLROUNDER
     }
 
     public List<IPLBattingDAO> csvList = new ArrayList<>();
@@ -57,7 +60,7 @@ public class CricketAnalyzer {
 //            throw new CricketAnalyzerException(e.getMessage(),
 //                    CricketAnalyzerException.ExceptionType.INCORRECT_FILE_DATA);
 //        }
-        return loadFileData(CsvFilePath, IPLBattingCSV.class, CSVtype.BATTING);
+        return loadFileData(  CSVtype.BATTING,CsvFilePath);
     }
 
 
@@ -129,7 +132,7 @@ public class CricketAnalyzer {
 //            throw new CricketAnalyzerException("in runt ime "+e.getMessage(),
 //                    CricketAnalyzerException.ExceptionType.INCORRECT_FILE_DATA);
 //        }
-        return loadFileData(csvFilePath, IPLBowlingCSV.class, CSVtype.BOWLING);
+        return loadFileData(  CSVtype.BOWLING,csvFilePath);
     }
 
     public List<IPLBattingDAO> bowlingAverageWiseSort() {
@@ -156,8 +159,13 @@ public class CricketAnalyzer {
         getSortedData(ComparatorType.WICKETS_AVERAGES);
         return csvList;
     }
+    public List<IPLBattingDAO> getBowlingandBattingAverage() {
+        getSortedData(ComparatorType.BATTING_BOWLING_AVERAGE);
+        return csvList;
+    }
 
-    private <E> int loadFileData(String csvFilePath, Class<E> iplCSVClass, CSVtype csvType) throws CricketAnalyzerException {
+
+    public  <E> int loadFileData( CSVtype csvType, String... csvFilePath) throws CricketAnalyzerException {
         csvList = new IPLAdapterFactory().getFileData(csvType, csvFilePath);
         int listSize = csvList.size();
 

@@ -54,6 +54,8 @@ public class Sorting {
             case WICKETS_AVERAGES:
                 return getComparator(CricketAnalyzer.ComparatorType.MAXWICKETS).
                         thenComparing(getComparator(CricketAnalyzer.ComparatorType.BOWLINGAVERAGE));
+            case BATTING_BOWLING_AVERAGE:
+                return  getComparator(CricketAnalyzer.ComparatorType.BOWLINGAVERAGE).thenComparing(getComparator(CricketAnalyzer.ComparatorType.AVERAGE));
                 default:
                 return null;
         }

@@ -10,7 +10,7 @@ import java.util.stream.StreamSupport;
 public class IPLBattingAdapter {
     public List<IPLBattingDAO> csvList = new ArrayList<>();
 
-    public List<IPLBattingDAO> loadFileData(String[] csvFilePath) throws CricketAnalyzerException {
+    public List<IPLBattingDAO> loadFileData(String... csvFilePath) throws CricketAnalyzerException {
 
             try {
                 Reader reader = Files.newBufferedReader(Paths.get(csvFilePath[0]));

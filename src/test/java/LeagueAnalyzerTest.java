@@ -161,6 +161,7 @@ public class LeagueAnalyzerTest {
 
         }
     }
+
     @Test
     public void givenBowlingCSVFile_whenSortedBowlingAveragewise() {
         try {
@@ -185,6 +186,7 @@ public class LeagueAnalyzerTest {
 
         }
     }
+
     @Test
     public void givenBowlingCSVFile_WhenSortedOnEconomy_ShouldReturnSortedResult() {
         try {
@@ -209,6 +211,7 @@ public class LeagueAnalyzerTest {
 
         }
     }
+
     @Test
     public void givenBowlingCSVFile_WhenSortedOnAverages_WithStrikeRate_ShouldReturnSortedResult() {
         try {
@@ -221,6 +224,7 @@ public class LeagueAnalyzerTest {
         }
 
     }
+
     @Test
     public void givenBowlingCSVFile_WhenSortedOnMaxWkts_WithBestAvg_ShouldReturnSortedResult() {
         try {
@@ -232,6 +236,14 @@ public class LeagueAnalyzerTest {
         } catch (CricketAnalyzerException e) {
 
         }
+    }
+
+    @Test
+    public void givenCSVFIle_WhenSortedOn_BattingAndBowlingAvgs_ShouldReturnSortedResult() throws CricketAnalyzerException {
+        CricketAnalyzer cricketAnalyzer = new CricketAnalyzer();
+        cricketAnalyzer.loadFileData(CricketAnalyzer.CSVtype.ALLROUNDER, BATTING_CSV_FILE_PATH, BOWLING_CSV_FILE_PATH);
+        List<IPLBattingDAO> sortedData = cricketAnalyzer.getBowlingandBattingAverage();
+        Assert.assertEquals(49, sortedData.size());
     }
 
 }
